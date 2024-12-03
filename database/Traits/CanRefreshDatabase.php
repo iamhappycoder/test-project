@@ -8,7 +8,7 @@ use PDO;
 
 trait CanRefreshDatabase
 {
-    private PDO $pdo;
+    protected PDO $pdo;
 
     public function setPDO(PDO $pdo): self
     {
