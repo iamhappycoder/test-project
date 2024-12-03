@@ -6,6 +6,7 @@ use App\Domain\Book\Entities\Author;
 use App\Domain\Book\Services\FindOrStoreAuthorService;
 use App\Infrastructure\Persistence\Book\CreateAuthorRepository;
 use App\Infrastructure\Persistence\Book\FindAuthorByNameRepository;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Tests\Mother\Book\AuthorMother;
 
@@ -13,8 +14,10 @@ class FindOrStoreAuthorServiceUnitTest extends TestCase
 {
     public function testSuccessAuthorCreated(): void
     {
-        $findAuthorByNameRepositoryMock = $this->createMock(FindAuthorByNameRepository::class);
-        $createAuthorRepositoryMock = $this->createMock(CreateAuthorRepository::class);
+        [
+            $findAuthorByNameRepositoryMock,
+            $createAuthorRepositoryMock,
+        ] = $this->getMockObjects();
 
         $findAuthorByNameRepositoryMock->expects($this->once())->method('__invoke')
             ->with('Lewis Carroll')
@@ -22,7 +25,7 @@ class FindOrStoreAuthorServiceUnitTest extends TestCase
 
         $createAuthorRepositoryMock->expects($this->once())->method('__invoke')
             ->with(AuthorMother::getSingleWithNoId())
-            ->willReturnCallback(function(Author $author) {
+            ->willReturnCallback(function(Author $author): void {
                 $author->id = 1;
             });
 
@@ -37,8 +40,10 @@ class FindOrStoreAuthorServiceUnitTest extends TestCase
 
     public function testSuccessAuthorReturned(): void
     {
-        $findAuthorByNameRepositoryMock = $this->createMock(FindAuthorByNameRepository::class);
-        $createAuthorRepositoryMock = $this->createMock(CreateAuthorRepository::class);
+        [
+            $findAuthorByNameRepositoryMock,
+            $createAuthorRepositoryMock,
+        ] = $this->getMockObjects();
 
         $findAuthorByNameRepositoryMock->expects($this->once())->method('__invoke')
             ->with('Lewis Carroll')
@@ -50,5 +55,17 @@ class FindOrStoreAuthorServiceUnitTest extends TestCase
             'Lewis Carroll',
         );
 
-        $this->assertInstanceOf(Author::class, $author);}
+        $this->assertInstanceOf(Author::class, $author);
+    }
+
+    /**
+     * @return MockObject[]
+     */
+    private function getMockObjects(): array
+    {
+        return [
+            $this->createMock(FindAuthorByNameRepository::class),
+            $this->createMock(CreateAuthorRepository::class),
+        ];
+    }
 }

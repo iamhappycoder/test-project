@@ -21,6 +21,11 @@ class BookMother
         return self::getObject(1, 'Alice in Wonderland', 1);
     }
 
+    public static function getSingleWithNoId(): Book
+    {
+        return self::getObject(null, 'Alice in Wonderland', 1);
+    }
+
     public static function getSingleWithNewAuthor(): Book
     {
         return self::getObject(1, 'Alice in Wonderland', 2);
