@@ -20,6 +20,11 @@ class AuthorMother
         return self::getObject(1, 'Lewis Carroll');
     }
 
+    public static function getSingleWithNoId(): Author
+    {
+        return self::getObject(null, 'Lewis Carroll');
+    }
+
     /**
      * @return Author[]
      */
