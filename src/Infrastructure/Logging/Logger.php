@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace App\Infrastructure\Logging;
 
-class ConsoleLogger implements LoggerInterface
+class Logger implements LoggerInterface
 {
+    private static $logFile;
+
+    public static function setLogFile(string $logFile): void
+    {
+        self::$logFile = $logFile;
+    }
+
     public static function info(string $message, array $context = []): void
     {
         self::log('INFO', $message, $context);
@@ -31,7 +38,7 @@ class ConsoleLogger implements LoggerInterface
             json_encode($context)
         );
 
-        $stream = fopen('php://output', 'w');
+        $stream = fopen(self::$logFile, 'w');
         fwrite($stream, $formattedMessage);
         fclose($stream);
     }
