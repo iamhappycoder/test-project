@@ -1,14 +1,14 @@
 <books>
     <book>
         <author>Исаак Азимов</author>
-        <name>영혼의 끝</name>
+        <name>영혼의 끝 F</name>
     </book>
     <book>
         <author>Isak Azimov</author>
-        <name>Конец Духа</name>
+        <name>Конец Духа G</name>
     </book>
     <book>
         <author>アイザック・アシモフ</author>
-        <name>Конец Духа</name>
+        <name>Конец Духа H</name>
     </book>
 </books>

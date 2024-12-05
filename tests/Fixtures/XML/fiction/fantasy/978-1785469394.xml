@@ -1,14 +1,14 @@
 <books>
     <book>
         <author>Исаак Азимов</author>
-        <name>영혼의 끝</name>
+        <name>영혼의 끝 A</name>
     </book>
     <book>
         <author>아이작 아시모프</author>
-        <name>End of Spirit</name>
+        <name>End of Spirit B</name>
     </book>
     <book>
         <author>Isak Azimov</author>
-        <name>End of Spirit</name>
+        <name>End of Spirit C</name>
     </book>
 </books>

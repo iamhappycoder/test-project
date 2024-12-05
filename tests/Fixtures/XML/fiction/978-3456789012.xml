@@ -1,14 +1,14 @@
 <books>
     <book>
         <author>Isak Azimov</author>
-        <name>精神の終わり</name>
+        <name>精神の終わり I</name>
     </book>
     <book>
         <author>アイザック・アシモフ</author>
-        <name>精神の終わり</name>
+        <name>精神の終わり J</name>
     </book>
     <book>
         <author>아이작 아시모프</author>
-        <name>精神の終わり</name>
+        <name>精神の終わり K</name>
     </book>
 </books>

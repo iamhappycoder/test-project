@@ -1,14 +1,14 @@
 <books>
     <book>
         <author>アイザック・アシモフ</author>
-        <name>Конец Духа</name>
+        <name>Конец Духа R</name>
     </book>
     <book>
         <author>Isak Azimov</author>
-        <name>Конец Духа</name>
+        <name>Конец Духа S</name>
     </book>
     <book>
         <author>Исаак Азимов</author>
-        <name>Конец Духа</name>
+        <name>Конец Духа T</name>
     </book>
 </books>
