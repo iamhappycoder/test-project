@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Traits;
 
+use App\Infrastructure\Logging\Logger;
 use PDO;
 
 trait CanRefreshDatabase
@@ -24,15 +25,15 @@ trait CanRefreshDatabase
 
             foreach ($tables as $table) {
                 $tableName = $table['table_name'];
-                echo "Dropping table: $tableName\n";
+                Logger::info('Dropping table: $tableName');
                 $this->getPDO()->exec("DROP TABLE IF EXISTS $tableName CASCADE;");
             }
 
             $this->getPDO()->exec("SET session_replication_role = 'origin';");
 
-            echo "Database wiped successfully.\n";
+            Logger::info( 'Database wiped successfully.');
         } catch (\PDOException $e) {
-            echo "Error wiping database: " . $e->getMessage() . "\n";
+            Logger::error('Error wiping database: " . $e->getMessage()');
         }
 
         return $this;
@@ -45,12 +46,12 @@ trait CanRefreshDatabase
         sort($migrationFiles);
 
         foreach ($migrationFiles as $migrationFile) {
-            echo "Running migration: $migrationFile\n";
+            Logger::info("Running migration: $migrationFile");
 
-            include $migrationFile;
+            include_once $migrationFile;
         }
 
-        echo "Migrations completed successfully.\n";
+        Logger::info('Migrations completed successfully.');
 
         return $this;
     }

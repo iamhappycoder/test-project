@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Migrations;
 
 use App\App;
+use App\Infrastructure\Logging\Logger;
 use PDOException;
 
 try {
@@ -16,7 +17,7 @@ try {
     ";
 
     App::createPDO()->exec($query);
-    echo "Authors table created successfully.\n";
+    Logger::info('Authors table created successfully.');
 } catch (PDOException $e) {
-    echo "Error creating authors table: " . $e->getMessage() . "\n";
+    Logger::error('Error creating authors table: ' . $e->getMessage());
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Infrastructure\Logging\Logger;
 use PDO;
 use PDOException;
 
@@ -24,9 +25,9 @@ class App
 
                 self::$pdo = new PDO($dsn, $user, $password);
                 self::$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo "Database connection established.\n";
+                Logger::info('Database connection established.');
             } catch (PDOException $e) {
-                echo "Database connection failed: " . $e->getMessage() . "\n";
+                Logger::error('Database connection failed: ' . $e->getMessage());
                 exit;
             }
         }
