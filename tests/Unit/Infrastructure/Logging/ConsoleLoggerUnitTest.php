@@ -23,7 +23,7 @@ class ConsoleLoggerUnitTest extends TestCase
         ob_end_clean();
     }
 
-    public function testInfoLogsToStdout(): void
+    public function testInfoSuccessLogsToStdout(): void
     {
         ConsoleLogger::info('Test Info Message', ['user_id' => 42]);
 
@@ -35,7 +35,7 @@ class ConsoleLoggerUnitTest extends TestCase
         $this->assertStringContainsString('"user_id":42', $output);
     }
 
-    public function testErrorLogsToStdout(): void
+    public function testErrorSuccessLogsToStdout(): void
     {
         ConsoleLogger::error('Test Error Message', ['error_code' => 123]);
 
@@ -47,7 +47,7 @@ class ConsoleLoggerUnitTest extends TestCase
         $this->assertStringContainsString('"error_code":123', $output);
     }
 
-    public function testDebugLogsToStdout(): void
+    public function testDebugSuccessLogsToStdout(): void
     {
         ConsoleLogger::debug('Test Debug Message', ['debug_data' => 'extra details']);
 
