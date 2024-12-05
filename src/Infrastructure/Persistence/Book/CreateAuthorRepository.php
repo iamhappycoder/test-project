@@ -14,7 +14,7 @@ class CreateAuthorRepository extends Repository implements CreateAuthorRepositor
     {
         $sql = "INSERT INTO authors (name) VALUES (:name) RETURNING id";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->getPDO()->prepare($sql);
         $stmt->bindValue(':name', $author->name);
 
         if ($stmt->execute()) {

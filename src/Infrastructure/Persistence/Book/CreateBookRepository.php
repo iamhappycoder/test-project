@@ -14,7 +14,7 @@ class CreateBookRepository extends Repository implements CreateBookRepositoryInt
     {
         $sql = "INSERT INTO books (name, author_id) VALUES (:name, :author_id) RETURNING id";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->getPDO()->prepare($sql);
         $stmt->bindValue(':name', $book->name);
         $stmt->bindValue(':author_id', $book->authorId);
 

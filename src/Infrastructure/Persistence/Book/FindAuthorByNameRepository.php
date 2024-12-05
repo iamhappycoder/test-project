@@ -13,7 +13,7 @@ class FindAuthorByNameRepository extends Repository implements FindAuthorByNameR
     {
         $sql = "SELECT * FROM authors WHERE name = :name";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->getPDO()->prepare($sql);
 
         $stmt->bindValue(':name', $authorName);
 

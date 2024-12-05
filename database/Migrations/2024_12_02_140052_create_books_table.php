@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Migrations;
 
+use App\App;
 use PDOException;
 
 try {
@@ -16,7 +17,7 @@ try {
         );
     ";
 
-    getPDO()->exec($query);
+    App::createPDO()->exec($query);
     echo "Books table created successfully.\n";
 } catch (PDOException $e) {
     echo "Error creating books table: " . $e->getMessage() . "\n";

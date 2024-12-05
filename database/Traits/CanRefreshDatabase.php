@@ -8,15 +8,6 @@ use PDO;
 
 trait CanRefreshDatabase
 {
-    protected PDO $pdo;
-
-    public function setPDO(PDO $pdo): self
-    {
-        $this->pdo = $pdo;
-
-        return $this;
-    }
-
     public function refreshDatabase(): void
     {
         $this->wipeDatabase()
@@ -26,18 +17,18 @@ trait CanRefreshDatabase
     public function wipeDatabase(): self
     {
         try {
-            $this->pdo->exec("SET session_replication_role = replica;");
+            $this->getPDO()->exec("SET session_replication_role = replica;");
 
-            $stmt = $this->pdo->query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
+            $stmt = $this->getPDO()->query("SELECT table_name FROM information_schema.tables WHERE table_schema = 'public'");
             $tables = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($tables as $table) {
                 $tableName = $table['table_name'];
                 echo "Dropping table: $tableName\n";
-                $this->pdo->exec("DROP TABLE IF EXISTS $tableName CASCADE;");
+                $this->getPDO()->exec("DROP TABLE IF EXISTS $tableName CASCADE;");
             }
 
-            $this->pdo->exec("SET session_replication_role = 'origin';");
+            $this->getPDO()->exec("SET session_replication_role = 'origin';");
 
             echo "Database wiped successfully.\n";
         } catch (\PDOException $e) {

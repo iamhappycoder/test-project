@@ -14,7 +14,7 @@ class UpdateBookRepository extends Repository implements UpdateBookRepositoryInt
     {
         $sql = "UPDATE books SET name = :name, author_id = :author_id WHERE id = :id";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->getPDO()->prepare($sql);
         $stmt->bindValue(':id', $book->id);
         $stmt->bindValue(':name', $book->name);
         $stmt->bindValue(':author_id', $book->authorId);

@@ -15,7 +15,7 @@ class FindBookByNameRepository extends Repository implements FindBookByNameRepos
     {
         $sql = "SELECT * FROM books WHERE name = :name LIMIT 1";
 
-        $stmt = $this->pdo->prepare($sql);
+        $stmt = $this->getPDO()->prepare($sql);
 
         $stmt->bindValue(':name', $bookName);
 

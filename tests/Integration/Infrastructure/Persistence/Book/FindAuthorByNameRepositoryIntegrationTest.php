@@ -10,7 +10,7 @@ class FindAuthorByNameRepositoryIntegrationTest extends RepositoryTestCase
 {
     public function testFailureAuthorNotFound(): void
     {
-        $repository = new FindAuthorByNameRepository($this->pdo);
+        $repository = new FindAuthorByNameRepository();
 
         $author = $repository('Nobody');
 
@@ -23,7 +23,7 @@ class FindAuthorByNameRepositoryIntegrationTest extends RepositoryTestCase
             AuthorSeeder::class,
         ]);
 
-        $author = (new FindAuthorByNameRepository($this->pdo))('Lewis Carroll');
+        $author = (new FindAuthorByNameRepository())('Lewis Carroll');
 
         $this->assertSame(1, $author->id);
         $this->assertSame('Lewis Carroll', $author->name);

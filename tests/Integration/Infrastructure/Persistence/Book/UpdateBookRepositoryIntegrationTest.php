@@ -38,7 +38,7 @@ class UpdateBookRepositoryIntegrationTest extends RepositoryTestCase
 
         $book = BookMother::getSingleWithNewAuthor();
 
-        (new UpdateBookRepository($this->pdo))($book);
+        (new UpdateBookRepository())($book);
 
         $this->assertDatabaseContains('books', [
             [

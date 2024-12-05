@@ -2,19 +2,21 @@
 
 namespace Tests\Integration\Infrastructure\Persistence;
 
+use Database\Traits\CanGetPDO;
 use Database\Traits\CanRefreshDatabase;
 use PHPUnit\Framework\TestCase;
 use Tests\Seeders\Seeder;
 
 abstract class RepositoryTestCase extends TestCase
 {
+    use CanGetPDO;
     use CanRefreshDatabase;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->setPDO(getPDO())->refreshDatabase();
+        $this->refreshDatabase();
     }
 
     /**
@@ -24,7 +26,7 @@ abstract class RepositoryTestCase extends TestCase
     {
         /** @var Seeder $seeder */
         foreach ($seeders as $seeder) {
-           (new $seeder($this->pdo))->run();
+           (new $seeder($this->getPDO()))->run();
        }
     }
 
@@ -40,7 +42,7 @@ abstract class RepositoryTestCase extends TestCase
 
             $sql = "SELECT 1 FROM $table WHERE $whereSql";
 
-            $stmt = $this->pdo->prepare($sql);
+            $stmt = $this->getPDO()->prepare($sql);
 
             foreach ($valueSet as $column => $value) {
                 $stmt->bindValue(":$column", $value);

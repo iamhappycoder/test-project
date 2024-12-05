@@ -12,7 +12,7 @@ class CreateAuthorRepositoryIntegrationTest extends RepositoryTestCase
     {
         $author = AuthorMother::getSingle();
 
-        (new CreateAuthorRepository($this->pdo))($author);
+        (new CreateAuthorRepository())($author);
 
         $this->assertDatabaseContains('authors', [
             [

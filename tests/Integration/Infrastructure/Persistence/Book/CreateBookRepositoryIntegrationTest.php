@@ -19,7 +19,7 @@ class CreateBookRepositoryIntegrationTest extends RepositoryTestCase
 
         $book = BookMother::getSingle();
 
-        (new CreateBookRepository($this->pdo))($book);
+        (new CreateBookRepository())($book);
 
         $this->assertDatabaseContains('books', [
             [

@@ -6,11 +6,11 @@ use App\Infrastructure\Persistence\Book\FindBookByNameRepository;
 use Tests\Integration\Infrastructure\Persistence\RepositoryTestCase;
 use Tests\Seeders\Book\AuthorWithBookSeeder;
 
-class FindBookByNameIntegrationTest extends RepositoryTestCase
+class FindBookByNameRepositoryIntegrationTest extends RepositoryTestCase
 {
     public function testFailureBookNotFound(): void
     {
-        $repository = new FindBookByNameRepository($this->pdo);
+        $repository = new FindBookByNameRepository();
 
         $author = $repository('Alice in Wonderland');
 
@@ -23,7 +23,7 @@ class FindBookByNameIntegrationTest extends RepositoryTestCase
             AuthorWithBookSeeder::class,
         ]);
 
-        $book = (new FindBookByNameRepository($this->pdo))('Alice in Wonderland');
+        $book = (new FindBookByNameRepository())('Alice in Wonderland');
 
         $this->assertSame(1, $book->id);
         $this->assertSame('Alice in Wonderland', $book->name);
