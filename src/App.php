@@ -34,4 +34,9 @@ class App
 
         return self::$pdo;
     }
+
+    public static function getAppDirectory(): string
+    {
+        return dirname(__DIR__);
+    }
 }
