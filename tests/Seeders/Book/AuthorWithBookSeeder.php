@@ -13,7 +13,7 @@ class AuthorWithBookSeeder extends Seeder
         $author = AuthorMother::getSingle();
         $book = BookMother::getSingle();
 
-        $this->pdo->exec("INSERT INTO authors (id, name) VALUES ({$author->id}, '{$author->name}')");
-        $this->pdo->exec("INSERT INTO books (id, name, author_id) VALUES ({$book->id}, '{$book->name}', {$book->authorId})");
+        $this->getPDO()->exec("INSERT INTO authors (id, name) VALUES ({$author->id}, '{$author->name}')");
+        $this->getPDO()->exec("INSERT INTO books (id, name, author_id) VALUES ({$book->id}, '{$book->name}', {$book->authorId})");
     }
 }

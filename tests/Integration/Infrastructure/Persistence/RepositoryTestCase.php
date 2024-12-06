@@ -7,11 +7,13 @@ use Database\Traits\CanGetPDO;
 use Database\Traits\CanRefreshDatabase;
 use PHPUnit\Framework\TestCase;
 use Tests\Seeders\Seeder;
+use Tests\Trait\CanSeed;
 
 abstract class RepositoryTestCase extends TestCase
 {
     use CanGetPDO;
     use CanRefreshDatabase;
+    use CanSeed;
 
     public static function setUpBeforeClass(): void
     {
