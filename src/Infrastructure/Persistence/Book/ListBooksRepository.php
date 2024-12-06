@@ -35,13 +35,11 @@ class ListBooksRepository extends Repository implements ListBooksRepositoryInter
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        $x = array_map(function(array $row): BookAggregate{
+        return array_map(function(array $row): BookAggregate{
             $book = new Book((int)$row['book_id'], $row['book_name'], (int)$row['author_id']);
             $author = new Author((int)$row['author_id'], $row['author_name']);
 
             return new BookAggregate($book, $author);
         }, $rows);
-
-        return $x;
     }
 }
