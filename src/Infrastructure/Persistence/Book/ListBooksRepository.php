@@ -35,49 +35,13 @@ class ListBooksRepository extends Repository implements ListBooksRepositoryInter
 
         $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_map(function(array $row): BookAggregate{
+        $x = array_map(function(array $row): BookAggregate{
             $book = new Book((int)$row['book_id'], $row['book_name'], (int)$row['author_id']);
             $author = new Author((int)$row['author_id'], $row['author_name']);
 
             return new BookAggregate($book, $author);
         }, $rows);
+
+        return $x;
     }
 }
-
-
-//function listBooks(PDO $pdo, int $page = 1, int $limit = 10): array
-//{
-//    // Calculate the offset based on the page number.
-//    $offset = ($page - 1) * $limit;
-//
-//    // Prepare the SQL query to fetch books and their authors
-//    $sql = "
-//        SELECT b.id AS book_id, b.name AS book_name, a.name AS author_name
-//        FROM books b
-//        JOIN authors a ON b.author_id = a.id
-//        ORDER BY b.name
-//        LIMIT :limit OFFSET :offset
-//    ";
-//
-//    // Prepare and execute the query
-//    $stmt = $pdo->prepare($sql);
-//    $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-//    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
-//    $stmt->execute();
-//
-//    // Fetch all results
-//    $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//
-//    // Get the total number of books for pagination calculation
-//    $totalBooks = getTotalBooks($pdo);
-//
-//    // Calculate total pages
-//    $totalPages = ceil($totalBooks / $limit);
-//
-//    return [
-//        'books' => $books,
-//        'current_page' => $page,
-//        'total_pages' => $totalPages,
-//        'total_books' => $totalBooks
-//    ];
-//}

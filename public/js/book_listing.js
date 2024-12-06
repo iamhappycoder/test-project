@@ -1,28 +1,42 @@
-var BOOKS = [
-    { id: 1, title: 'To Kill a Mockingbird', author_name: 'Harper Lee' },
-    { id: 2, title: 'Sapiens', author_name: 'Yuval Noah Harari' },
-    { id: 3, title: 'The Hobbit', author_name: 'J.R.R. Tolkien' },
-    { id: 4, title: 'A Brief History of Time', author_name: 'Stephen Hawking'  },
-    { id: 5, title: 'Guns, Germs, and Steel', author_name: 'Jared Diamond' },
-    { id: 6, title: '1984', author_name: 'George Orwell' },
-    { id: 7, title: 'The Selfish Gene', author_name: 'Richard Dawkins' },
-    { id: 8, title: 'The Pillars of the Earth', author_name: 'Ken Follett' },
-    { id: 9, title: 'A Short History of Nearly Everything', author_name: 'Bill Bryson' },
-    { id: 10, title: 'The Alchemist', author_name: 'Paulo Coelho' }
-];
-
 function BookListing() {
     this.booksBody = document.getElementById('booksBody');
-    this.render();
+    this.page = this.getQueryParam('page') || 1;
+    this.limit = this.getQueryParam('limit') || 10;
+    this.fetchBooks();
 }
 
-BookListing.prototype.render = function() {
+BookListing.prototype.getQueryParam = function(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+};
+
+BookListing.prototype.fetchBooks = function() {
+    var self = this;
+
+    var url = `/api/books/?page=${this.page}&limit=${this.limit}`;
+
+    fetch(url)
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(function(books) {
+            self.render(books);
+        })
+        .catch(function(error) {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+};
+
+BookListing.prototype.render = function(books) {
     var html = '';
-    for (var i = 0; i < BOOKS.length; i++) {
-        var book = BOOKS[i];
+
+    for (var i = 0; i < books.length; i++) {
         html += '<tr>' +
-            '<td>' + book.title + '</td>' +
-            '<td>' + book.author_name + '</td>' +
+            '<td>' + books[i].name + '</td>' +
+            '<td>' + books[i].author_name + '</td>' +
             '</tr>';
     }
 

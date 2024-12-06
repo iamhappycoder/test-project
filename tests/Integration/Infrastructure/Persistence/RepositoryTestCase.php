@@ -23,17 +23,6 @@ abstract class RepositoryTestCase extends TestCase
         $this->refreshDatabase();
     }
 
-    /**
-     * @param string[] $seeders
-     */
-    public function seed(array $seeders): void
-    {
-        /** @var Seeder $seeder */
-        foreach ($seeders as $seeder) {
-           (new $seeder())->run();
-       }
-    }
-
     public function assertDatabaseContains(string $table, array $values): void
     {
         foreach ($values as $valueSet) {
