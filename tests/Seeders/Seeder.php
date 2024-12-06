@@ -2,12 +2,11 @@
 
 namespace Tests\Seeders;
 
+use Database\Traits\CanGetPDO;
+
 abstract class Seeder
 {
-    public function __construct(
-        protected \PDO $pdo,
-    ) {
-    }
+    use CanGetPDO;
 
     abstract public function run(): void;
 }

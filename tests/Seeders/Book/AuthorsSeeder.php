@@ -12,7 +12,7 @@ class AuthorsSeeder extends Seeder
         $authors = AuthorMother::getMultiple(2);
 
         foreach ($authors as $author) {
-            $this->pdo->exec("INSERT INTO authors (id, name) VALUES ({$author->id}, '{$author->name}')");
+            $this->getPDO()->exec("INSERT INTO authors (id, name) VALUES ({$author->id}, '{$author->name}')");
         }
 
     }

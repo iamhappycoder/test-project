@@ -2,6 +2,7 @@
 
 namespace Tests\Integration\Infrastructure\Persistence;
 
+use App\Infrastructure\Logging\Logger;
 use Database\Traits\CanGetPDO;
 use Database\Traits\CanRefreshDatabase;
 use PHPUnit\Framework\TestCase;
@@ -12,10 +13,13 @@ abstract class RepositoryTestCase extends TestCase
     use CanGetPDO;
     use CanRefreshDatabase;
 
+    public static function setUpBeforeClass(): void
+    {
+        Logger::setLogFile('php://temp');
+    }
+
     public function setUp(): void
     {
-        parent::setUp();
-
         $this->refreshDatabase();
     }
 
@@ -26,7 +30,7 @@ abstract class RepositoryTestCase extends TestCase
     {
         /** @var Seeder $seeder */
         foreach ($seeders as $seeder) {
-           (new $seeder($this->getPDO()))->run();
+           (new $seeder())->run();
        }
     }
 

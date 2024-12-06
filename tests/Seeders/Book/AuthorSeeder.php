@@ -11,6 +11,6 @@ class AuthorSeeder extends Seeder
     {
         $author = AuthorMother::getSingle();
 
-        $this->pdo->exec("INSERT INTO authors (id, name) VALUES ({$author->id}, '{$author->name}')");
+        $this->getPDO()->exec("INSERT INTO authors (id, name) VALUES ({$author->id}, '{$author->name}')");
     }
 }
